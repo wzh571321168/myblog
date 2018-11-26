@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <!-- 配置包扫描器 -->
+    <!--<context:component-scan base-package="com.wangzhi.blog.service.impl"></context:component-scan>-->
+    <!-- 用户管理的service -->
+    <!--<bean id="userService" class="com.liuyanzhao.blog.service.impl.UserServiceImpl"/>
+
+    &lt;!&ndash; 文章管理的service &ndash;&gt;
+    <bean id="articleService" class="com.liuyanzhao.blog.service.impl.ArticleServiceImpl"/>
+
+    &lt;!&ndash; 分类管理的service &ndash;&gt;
+    <bean id="categoryService" class="com.liuyanzhao.blog.service.impl.CategoryServiceImpl"/>
+
+    &lt;!&ndash; 标签管理的service &ndash;&gt;
+    <bean id="tagService" class="com.liuyanzhao.blog.service.impl.TagServiceImpl"/>
+
+    &lt;!&ndash;链接管理的service&ndash;&gt;
+    <bean id="linkService" class="com.liuyanzhao.blog.service.impl.LinkServiceImpl"/>
+
+    &lt;!&ndash;页面管理的service&ndash;&gt;
+    <bean id="pageService" class="com.liuyanzhao.blog.service.impl.PageServiceImpl"/>
+
+    &lt;!&ndash;网站信息管理的service&ndash;&gt;
+    <bean id="optionService" class="com.liuyanzhao.blog.service.impl.OptionsServiceImpl"/>
+
+    &lt;!&ndash;评论管理的service&ndash;&gt;
+    <bean id="commentService" class="com.liuyanzhao.blog.service.impl.CommentServiceImpl"/>
+
+    &lt;!&ndash;评论管理的service&ndash;&gt;
+    <bean id="noticeService" class="com.liuyanzhao.blog.service.impl.NoticeServiceImpl"/>
+
+    &lt;!&ndash;菜单管理的service&ndash;&gt;
+    <bean id="menuService" class="com.liuyanzhao.blog.service.impl.MenuServiceImpl"/>
+
+
+
+    &lt;!&ndash;常用功能&ndash;&gt;
+    <bean id="functions" class="com.liuyanzhao.blog.util.Functions"/>-->
+
+
+</beans>
