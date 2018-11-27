@@ -3,22 +3,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>myblog-parent</artifactId>
+        <artifactId>myblog-manager</artifactId>
         <groupId>com.wangzhi</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../myblog-parent/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>myblog-manager-serviceImpl</artifactId>
-    <packaging>jar</packaging>
+
     <name>myblog-manager-serviceImpl</name>
-
-
-
+    <packaging>jar</packaging>
 
     <dependencies>
-
         <dependency>
             <groupId>com.wangzhi</groupId>
             <artifactId>myblog-manager-dao</artifactId>
@@ -29,6 +25,7 @@
             <artifactId>myblog-manager-service</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <!-- spring的依赖 -->
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -50,42 +47,14 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>
         </dependency>
+        <!--<dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+        </dependency>-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-        </dependency>
-        <!-- 与dubbo相关的jar -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>dubbo</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.zookeeper</groupId>
-            <artifactId>zookeeper</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.sgroschupf</groupId>
-            <artifactId>zkclient</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-        </dependency>
-    </dependencies>
-    <!--<build>
-        <resources>
 
-            <resource>
-                <directory>src/main/resources</directory>&lt;!&ndash;所在的目录&ndash;&gt;
-                <includes>&lt;!&ndash;包括目录下的.properties,.xml文件都会扫描到&ndash;&gt;
-                    <include>**/*</include>
-                </includes>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-    </build>-->
+    </dependencies>
 </project>

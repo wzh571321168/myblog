@@ -13,7 +13,7 @@
 	http://www.springframework.org/schema/tx
 	http://www.springframework.org/schema/tx/spring-tx.xsd">
     <!-- 配置包扫描器 -->
-    <!--<context:component-scan base-package="com.wangzhi.blog.service.impl"></context:component-scan>-->
+   <!-- <context:component-scan base-package="com.wangzhi.myblog.serviceImpl"></context:component-scan>-->
     <!-- 用户管理的service -->
     <!--<bean id="userService" class="com.liuyanzhao.blog.service.impl.UserServiceImpl"/>
 

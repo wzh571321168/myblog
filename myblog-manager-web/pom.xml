@@ -104,25 +104,15 @@
             <groupId>com.github.sgroschupf</groupId>
             <artifactId>zkclient</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.googlecode.rapid-framework</groupId>
+            <artifactId>rapid-core</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
         <finalName>items-manager-web</finalName>
-        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
-            <plugins>
 
-                <!-- 配置Tomcat插件 -->
-                <plugin>
-                    <groupId>org.apache.tomcat.maven</groupId>
-                    <artifactId>tomcat7-maven-plugin</artifactId>
-                    <configuration>
-                        <port>8081</port>
-                        <path>/</path>
-                    </configuration>
-                </plugin>
-            </plugins>
-
-        </pluginManagement>
         <resources>
 
             <resource>
