@@ -18,12 +18,12 @@
             <div class="feed-about">
                 <div class="about-main">
                     <div class="about-img">
-                        <img src="${options.optionAboutsiteAvatar}"
+                        <img src="/uploads/2017/10/wang.jpg<%--${options.optionAboutsiteAvatar}--%>"
                         alt="QR Code">
                     </div>
-                    <div class="about-name">${options.optionAboutsiteTitle}</div>
+                    <div class="about-name">博客初心<%--${options.optionAboutsiteTitle}--%></div>
                     <div class="about-the">
-                        ${options.optionAboutsiteContent}
+                        <%--${options.optionAboutsiteContent}--%>程序学习的新起点。珍惜时间，保持努力的惯性。
                     </div>
                 </div>
                 <div class="clear"></div>
