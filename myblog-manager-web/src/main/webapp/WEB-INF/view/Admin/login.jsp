@@ -13,7 +13,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>${options.optionSiteTitle} &lsaquo; 登录</title>
     <link rel="stylesheet" href="/plugin/font-awesome/css/font-awesome.min.css">
-    <link rel="shortcut icon" href="/img/logo.png">
+    <link rel="shortcut icon" href="/img/logo.jpg">
     <link rel='stylesheet' id='dashicons-css'  href='/plugin/login/dashicons.min.css' type='text/css' media='all' />
     <link rel='stylesheet' id='buttons-css'  href='/plugin/login/buttons.min.css' type='text/css' media='all' />
     <link rel='stylesheet' id='forms-css'  href='/plugin/login/forms.min.css' type='text/css' media='all' />
@@ -77,11 +77,11 @@
          %>
     <form name="loginForm" id="loginForm"  method="post">
         <p>
-            <label for="user_login">用户名或电子邮件地址<br />
-                <input type="text" name="username" id="user_login" class="input" value="<%=username%>" size="20" required/></label>
+            <label for="user_login">猜猜我的用户名<br />
+                <input type="text" name="username" id="user_login" class="input" value="<%=username%>" onblur="" size="20" required/></label>
         </p>
         <p>
-            <label for="user_pass">密码<br />
+            <label for="user_pass">你是猜不到我的密码的<br />
                 <input type="password" name="password" id="user_pass" class="input" value="<%=password%>" size="20" required/>
             </label>
         </p>
@@ -107,7 +107,7 @@
         if(typeof wpOnload=='function')wpOnload();
     </script>
 
-    <p id="backtoblog"><a href="/">&larr; 返回到风吟博客</a></p>
+    <p id="backtoblog"><a href="/">&larr; 返回到MyBlog</a></p>
 
 </div>
 
@@ -130,7 +130,7 @@
             $.ajax({
                 async: false,//同步，待请求完毕后再执行后面的代码
                 type: "POST",
-                url: '/loginVerify',
+                url: '/loginConfirm',
                 contentType: "application/x-www-form-urlencoded; charset=utf-8",
                 data: $("#loginForm").serialize(),
                 dataType: "json",

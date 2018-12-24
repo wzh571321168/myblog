@@ -123,6 +123,19 @@ function queryArticle() {
     $("#articleForm").submit();
 }
 
+function importArticle() {
+    $.ajax({
+        async: false,
+        type: "POST",
+        url:'/admin/article/importArticle',
+        contentType : "application/x-www-form-urlencoded; charset=utf-8",
+        dataType: "json",
+        success:function (data) {
+            alert(data.msg);
+        }
+    })
+}
+
 //批量删除文章
 function confirmDeleteArticleBatch() {
     if(confirmDelete()==true){

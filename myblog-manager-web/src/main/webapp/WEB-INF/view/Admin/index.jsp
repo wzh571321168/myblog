@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="rapid" uri="http://www.rapid-framework.org.cn/rapid" %>
+<script  src="/js/echarts.js" type="text/javascript"></script>
 <rapid:override name="header-style">
     <style>
         .layui-input-block {
@@ -221,9 +222,10 @@
 </rapid:override>
 
 <rapid:override name="content">
-    <div class="layui-container">
+
 
     <div class="layui-row">
+
         <div class="layui-col-md6">
             <div id="dashboard_activity" class="postbox ">
                 <div class="inside">
@@ -315,55 +317,211 @@
             </div>
         </div>
         <div class="layui-col-md6">
-            <div id="dashboard_quick_press" class="postbox ">
-                <div class="inside">
-                    <form name="post" method="post" id="insertDraftForm"
-                          class="initial-form hide-if-no-js" action="/admin/article/insertDraftSubmit">
+            <div class="layui-container" style="width: 600px;height:400px;">
+                <div id="main" style="height: 100%"></div>
 
-                        <div class="layui-form-item">
-                            <div class="layui-input-block">
-                                <input type="text" name="articleTitle" id="articleTitle" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-form-item layui-form-text">
-                            <div class="layui-input-block">
-                                <textarea name="articleContent" placeholder="请输入内容" id="articleContent" class="layui-textarea" required></textarea>
-                            </div>
-                        </div>
-                        <input type="hidden" name="articleStatus" value="0">
-                        <div class="layui-form-item">
-                            <div class="layui-input-block">
-                                <button class="layui-btn layui-btn-small" lay-submit lay-filter="formDemo" onclick="insertDraft()">保存草稿</button>
-                                <button type="reset" class="layui-btn layui-btn-small layui-btn-primary">重置</button>
-                            </div>
-                        </div>
-
-                    </form>
-                    <div class="drafts"><p class="view-all"><a
-                            href="/admin/article"
-                            aria-label="查看所有草稿">查看所有</a></p>
-                        <h2 class="hide-if-no-js">草稿</h2>
-                        <ul>
-                            <c:forEach items="${articleCustomList}" var="a">
-                                <c:if test="${a.articleCustom.articleStatus==0}">
-                                    <li>
-                                        <div class="draft-title"><a
-                                                href="/admin/article/edit/${a.articleCustom.articleId}">${a.articleCustom.articleTitle}</a>
-                                            <time ><fmt:formatDate value="${a.articleCustom.articlePostTime}" pattern="yyyy年MM月dd日"/></time>
-                                        </div>
-                                    </li>
-                                </c:if>
-                            </c:forEach>
-                        </ul>
-                    </div>
-                </div>
+                <div id="container" style="height: 100%"></div>
             </div>
+
+           <%-- (function () {
+            var arr = [];
+            $.ajax({
+            type: "post",
+            async: false, //同步执行
+            url: "/admin/tag/getAllTagecharts",
+            data: {},
+            dataType: "json", //返回数据形式为json
+            success: function (json) {
+            if (json) {
+            for (var i = 0; i < json.length; i++) {
+            arr.push(json[i].tagName);
+            }
+            }
+
+            },
+            error: function (errorMsg) {
+            alert("不好意思,图表请求数据失败啦!");
+            myChart.hideLoading();
+            }
+            })--%>
         </div>
     </div>
 
 </rapid:override>
 <rapid:override name="footer-script">
     <script>
+        $(function() {
+            // 初始化
+            //var myChart = echarts.init(document.getElementById('main'));
+            var myChart = echarts.init($('#main')[0]); // 注意：这里init方法的参数的javascript对象，使用jQuery获取标签时，要将jQuery对象转成JavaScript对象；
+
+            // 配置图标参数
+            var options = {
+                title: {
+                    text: '标签对应文章数量',
+                    show: true, // 是否显示标题
+                    subtext: '',
+                    textStyle: {
+                        fontSize: 18 // 标题文字大小
+                    }
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                legend: {
+                    data: ['文章数量']
+                },
+                // X轴
+                xAxis: {
+                    data: [] // 异步请求时,这里要置空
+                },
+                // Y轴
+                yAxis: {},
+                series: [{
+                    name: '文章数量',
+                    type: 'bar', // 设置图表类型为柱状图
+                    data: [] // 设置纵坐标的刻度(异步请求时,这里要置空)
+                }]
+            };
+
+            var dom = document.getElementById("container");
+            var pieChart = echarts.init(dom);
+            var app = {};
+            pieOption = null;
+            app.title = '环形图';
+
+            pieOption = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"
+                },
+                legend: {
+                    orient: 'vertical',
+                    x: 'left',
+                    data:[]
+                },
+                series: [
+                    {
+                        name:'访问来源',
+                        type:'pie',
+                        radius: ['50%', '70%'],
+                        avoidLabelOverlap: false,
+                        label: {
+                            normal: {
+                                show: false,
+                                position: 'center'
+                            },
+                            emphasis: {
+                                show: true,
+                                textStyle: {
+                                    fontSize: '30',
+                                    fontWeight: 'bold'
+                                }
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        data:[
+                        ]
+                    }
+                ]
+            };
+            ;
+
+
+
+
+            // 给图标设置配置的参数
+            myChart.setOption(options);
+            myChart.showLoading(); // 显示加载动画
+// 异步请求加载数据
+            $.ajax({
+                url: '/admin/tag/getAllTagecharts',
+                type: 'post',
+                dataType: 'json',
+                success: function(data) {
+                    var names = [];
+                    var nums = [];
+                    var json=[];
+                    $.each(data, function(index, obj) {
+                        if(obj.articleCount!=0){
+                            names.push(obj.tagName);
+                            nums.push(obj.articleCount);
+                            var tagname=obj.tagName;
+                            var articleCount=obj.articleCount;
+                            var arr={name:obj.tagName,value:obj.articleCount};
+                            json.push(arr);
+                        }
+
+                    })
+
+                    myChart.hideLoading(); // 隐藏加载动画
+                    myChart.setOption({
+                        legend: {
+                            data: ['文章数量']
+                        },
+                        xAxis: {
+                            data: names
+                        },
+                        series: [{
+                            name: '文章数量',
+                            type: 'bar', // 设置图表类型为柱状图
+                            data: nums // 设置纵坐标的刻度
+                        }]
+                    });
+                    pieChart.hideLoading(); // 隐藏加载动画
+                    pieChart.setOption({
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: "{a} <br/>{b}: {c} ({d}%)"
+                        },
+                        legend: {
+                            orient: 'vertical',
+                            x: 'left',
+                            data:names,
+                        },
+                        series: [
+                            {
+                                name:'文章数量',
+                                type:'pie',
+                                radius: ['50%', '70%'],
+                                avoidLabelOverlap: false,
+                                label: {
+                                    normal: {
+                                        show: false,
+                                        position: 'center'
+                                    },
+                                    emphasis: {
+                                        show: true,
+                                        textStyle: {
+                                            fontSize: '30',
+                                            fontWeight: 'bold'
+                                        }
+                                    }
+                                },
+                                labelLine: {
+                                    normal: {
+                                        show: false
+                                    }
+                                },
+                                data:json
+                            }
+                        ]
+                    });
+                }
+            });
+        });
+
+
+
+
+
 
     </script>
 </rapid:override>

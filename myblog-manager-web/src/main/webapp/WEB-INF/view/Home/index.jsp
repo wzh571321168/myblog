@@ -26,7 +26,13 @@
 
     <rapid:override name="left">
         <div id="primary" class="content-area">
-
+            <div class="layui-carousel" id="test10">
+                <div carousel-item="">
+                    <c:forEach items="${pictureList}" var="p" >
+                        <div><img src="${p.picUrl}" width="778px" height="440px"></div>
+                    </c:forEach>
+                </div>
+            </div>
             <main id="main" class="site-main" role="main">
                 <c:forEach items="${articleListVoList}" var="a">
 
@@ -40,8 +46,8 @@
                                      alt="${a.articleCustom.articleTitle}">
                             </a>
                             <span class="cat">
-                                <a href="/category/${a.categoryCustomList[a.categoryCustomList.size()-1].categoryId}">
-                                        ${a.categoryCustomList[a.categoryCustomList.size()-1].categoryName}
+                                <a href="/category/${a.articleCustom.articleParentCategoryId}">
+                                        ${a.articleCustom.articleParentCategoryName}
                                 </a>
                             </span>
                         </figure>
@@ -112,86 +118,13 @@
                             </span>
                     </article>
                 </c:forEach>
+
             </main>
-
-            <c:if test="${articleListVoList[0].page.totalPageCount>1}">
-            <nav class="navigation pagination" role="navigation">
-                <div class="nav-links">
-                    <c:choose>
-                        <c:when test="${articleListVoList[0].page.totalPageCount <= 3 }">
-                            <c:set var="begin" value="1"/>
-                            <c:set var="end" value="${articleListVoList[0].page.totalPageCount }"/>
-                        </c:when>
-                        <c:otherwise>
-                            <c:set var="begin" value="${articleListVoList[0].page.pageNow-1 }"/>
-                            <c:set var="end" value="${articleListVoList[0].page.pageNow + 2}"/>
-                            <c:if test="${begin < 2 }">
-                                <c:set var="begin" value="1"/>
-                                <c:set var="end" value="3"/>
-                            </c:if>
-                            <c:if test="${end > articleListVoList[0].page.totalPageCount }">
-                                <c:set var="begin" value="${articleListVoList[0].page.totalPageCount-2 }"/>
-                                <c:set var="end" value="${articleListVoList[0].page.totalPageCount }"/>
-                            </c:if>
-                        </c:otherwise>
-                    </c:choose>
-                        <%--上一页 --%>
-                    <c:choose>
-                        <c:when test="${articleListVoList[0].page.pageNow eq 1 }">
-                            <%--当前页为第一页，隐藏上一页按钮--%>
-                        </c:when>
-                        <c:otherwise>
-                            <a class="page-numbers" href="/p/${articleListVoList[0].page.pageNow-1}" >
-                                <span class="fa fa-angle-left"></span>
-                            </a>
-                        </c:otherwise>
-                    </c:choose>
-                        <%--显示第一页的页码--%>
-                    <c:if test="${begin >= 2 }">
-                        <a class="page-numbers" href="/p/1">1</a>
-                    </c:if>
-                        <%--显示点点点--%>
-                    <c:if test="${begin  > 2 }">
-                        <span class="page-numbers dots">…</span>
-                    </c:if>
-                        <%--打印 页码--%>
-                    <c:forEach begin="${begin }" end="${end }" var="i">
-                        <c:choose>
-                            <c:when test="${i eq articleListVoList[0].page.pageNow }">
-                                <a class="page-numbers current" >${i}</a>
-                            </c:when>
-                            <c:otherwise>
-                                <a  class="page-numbers" href="/p/${i}">${i }</a>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
-                        <%-- 显示点点点 --%>
-                    <c:if test="${end < articleListVoList[0].page.totalPageCount-1 }">
-                        <span class="page-numbers dots">…</span>
-                    </c:if>
-                        <%-- 显示最后一页的数字 --%>
-                    <c:if test="${end < articleListVoList[0].page.totalPageCount }">
-                        <a href="/p/${articleListVoList[0].page.totalPageCount}">
-                                ${articleListVoList[0].page.totalPageCount}
-                        </a>
-                    </c:if>
-                        <%--下一页 --%>
-                    <c:choose>
-                        <c:when test="${articleListVoList[0].page.pageNow eq articleListVoList[0].page.totalPageCount }">
-                            <%--到了尾页隐藏，下一页按钮--%>
-                        </c:when>
-                        <c:otherwise>
-                            <a class="page-numbers" href="/p/${articleListVoList[0].page.pageNow+1}">
-                                <span class="fa fa-angle-right"></span>
-                            </a>
-                        </c:otherwise>
-                    </c:choose>
-
-                </div>
-            </nav>
-                <%--分页 end--%>
-            </c:if>
+            <div class="layui-card-footer" style="text-align: center">
+                <div id="pagination"></div>
+            </div>
         </div>
+
     </rapid:override>
     <%--左侧区域 end--%>
 
@@ -217,7 +150,52 @@
                 <div class="clear"></div>
             </div>
         </div>
+
     </rapid:override>
     <%--友情链接 end--%>
+<rapid:override name="footer-script">
+    <script>
+        $(function () {
+            var laypage = layui.laypage
+            //完整功能
+            laypage.render({
+                elem: 'pagination'
+                , count: ${articleListVoList.get(0).page.total} //数据总数，从服务端得到
+                , limit: ${articleListVoList.get(0).page.pageSize}
+                , curr: ${articleListVoList.get(0).page.pageNum}
+                , layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+                , jump: function (obj, first) {
+                    //obj包含了当前分页的所有参数，比如：
+                    console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                    console.log(obj.limit); //得到每页显示的条数
+
+                    //首次不执行
+                    if (!first) {
+
+                        var href = '/page?';
+                        href += 'pageNum=' + obj.curr;
+                        href += '&pageSize=' + obj.limit;
+                        location.href = href;
+                    }
+
+                }
+            });
+        })
+
+
+        layui.use(['carousel', 'form'], function() {
+            var carousel = layui.carousel
+                , form = layui.form;
+
+            //常规轮播
+            carousel.render({
+                elem: '#test10'
+                ,width: '778px'
+                ,height: '440px'
+                ,interval: 5000
+            });
+        })
+    </script>
+</rapid:override>
 
 <%@ include file="Public/framework.jsp" %>

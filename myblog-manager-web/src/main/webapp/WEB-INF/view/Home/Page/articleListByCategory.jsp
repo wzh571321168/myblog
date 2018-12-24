@@ -26,7 +26,7 @@
             <c:when test="${articleListVoList!=null}">
                 <c:choose>
                     <c:when test="${articleListVoList.size()!=0}">
-                        <a href="/category/${articleListVoList[0].categoryCustomList[0].categoryId}">${articleListVoList[0].categoryCustomList[0].categoryName}</a>
+                        <a href="/category/${articleListVoList[0].articleCustom.articleParentCategoryId}">${articleListVoList[0].articleCustom.articleParentCategoryName}</a>
                     </c:when>
                     <c:otherwise>
                         <a href="/category/${categoryCustom.categoryId}">${categoryCustom.categoryName}</a>
@@ -67,8 +67,8 @@
                                                          alt="${a.articleCustom.articleTitle}">
                                                 </a>
                                                 <span class="cat">
-                                            <a href="/category/${a.categoryCustomList[a.categoryCustomList.size()-1].categoryId}">
-                                                    ${a.categoryCustomList[a.categoryCustomList.size()-1].categoryName}
+                                            <a href="/category/${a.articleCustom.articleChildCategoryId}">
+                                                    ${a.articleCustom.articleChildCategoryName}
                                             </a>
                                         </span>
                                             </figure>
@@ -161,10 +161,10 @@
                     </c:choose>
 
              </main>
-            <c:choose>
+          <%--  <c:choose>
                 <c:when test="${articleListVoList!=null}">
                         <c:if test="${articleListVoList.size()!=0}">
-                            <%--分页 start--%>
+                            &lt;%&ndash;分页 start&ndash;%&gt;
                             <nav class="navigation pagination" role="navigation">
                                 <div class="nav-links">
                                     <c:choose>
@@ -185,10 +185,10 @@
                                             </c:if>
                                         </c:otherwise>
                                     </c:choose>
-                                        <%--上一页 --%>
+                                        &lt;%&ndash;上一页 &ndash;%&gt;
                                     <c:choose>
                                         <c:when test="${articleListVoList[0].page.pageNow eq 1 }">
-                                            <%--当前页为第一页，隐藏上一页按钮--%>
+                                            &lt;%&ndash;当前页为第一页，隐藏上一页按钮&ndash;%&gt;
                                         </c:when>
                                         <c:otherwise>
                                             <a class="page-numbers"
@@ -197,16 +197,16 @@
                                             </a>
                                         </c:otherwise>
                                     </c:choose>
-                                        <%--显示第一页的页码--%>
+                                        &lt;%&ndash;显示第一页的页码&ndash;%&gt;
                                     <c:if test="${begin >= 2 }">
                                         <a class="page-numbers"
                                            href="/category/${articleListVoList[0].categoryCustomList[0].categoryId}/p/1">1</a>
                                     </c:if>
-                                        <%--显示点点点--%>
+                                        &lt;%&ndash;显示点点点&ndash;%&gt;
                                     <c:if test="${begin  > 2 }">
                                         <span class="page-numbers dots">…</span>
                                     </c:if>
-                                        <%--打印 页码--%>
+                                        &lt;%&ndash;打印 页码&ndash;%&gt;
                                     <c:forEach begin="${begin }" end="${end }" var="i">
                                         <c:choose>
                                             <c:when test="${i eq articleListVoList[0].page.pageNow }">
@@ -218,23 +218,23 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </c:forEach>
-                                        <%-- 显示点点点 --%>
+                                        &lt;%&ndash; 显示点点点 &ndash;%&gt;
                                     <c:if test="${end < articleListVoList[0].page.totalPageCount-1 }">
                                         <span class="page-numbers dots">…</span>
                                     </c:if>
-                                        <%-- 显示最后一页的数字 --%>
+                                        &lt;%&ndash; 显示最后一页的数字 &ndash;%&gt;
                                     <c:if test="${end < articleListVoList[0].page.totalPageCount }">
                                         <a href="/category/${articleListVoList[0].categoryCustomList[0].categoryId}/p/${articleListVoList[0].page.totalPageCount}">
                                                 ${articleListVoList[0].page.totalPageCount}
                                         </a>
                                     </c:if>
-                                        <%--下一页 --%>
+                                        &lt;%&ndash;下一页 &ndash;%&gt;
                                     <c:choose>
                                         <c:when test="${articleListVoList[0].page.pageNow eq articleListVoList[0].page.totalPageCount }">
-                                            <%--到了尾页隐藏，下一页按钮--%>
+                                            &lt;%&ndash;到了尾页隐藏，下一页按钮&ndash;%&gt;
                                         </c:when>
                                         <c:otherwise>
-                                            <%--如果没有结果，隐藏最后一个>--%>
+                                            &lt;%&ndash;如果没有结果，隐藏最后一个>&ndash;%&gt;
                                             <c:if test="${articleListVoList[0].page.totalPageCount>0}">
                                                 <a class="page-numbers"
                                                    href="/category/${articleListVoList[0].categoryCustomList[0].categoryId}/p/${articleListVoList[0].page.pageNow+1}">
@@ -246,10 +246,10 @@
 
                                 </div>
                             </nav>
-                            <%--分页 end--%>
+                            &lt;%&ndash;分页 end&ndash;%&gt;
                         </c:if>
                 </c:when>
-            </c:choose>
+            </c:choose>--%>
         </div>
         <%--  博客主体-左侧正文 end--%>
     </rapid:override>

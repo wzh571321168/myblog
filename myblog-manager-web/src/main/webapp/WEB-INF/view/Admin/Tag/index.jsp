@@ -71,11 +71,12 @@
 
             <table class="layui-table" >
                 <colgroup>
+                    <col width="50">
                     <col width="200">
                     <col width="100">
                     <col width="50">
                     <col width="100">
-                    <col width="50">
+
                 </colgroup>
                 <thead>
                 <tr>
@@ -90,6 +91,7 @@
                 <c:forEach items="${tagCustomList}" var="c">
 
                     <tr>
+                        <td >${c.tagId}</td>
                         <td>
                             <a href="/tag/${c.tagId}" target="_blank">${c.tagName}</a>
                         </td>
@@ -113,7 +115,7 @@
                             </c:if>
 
                         </td>
-                        <td >${c.tagId}</td>
+
                     </tr>
 
                 </c:forEach>

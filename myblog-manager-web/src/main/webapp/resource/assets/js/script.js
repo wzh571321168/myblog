@@ -311,7 +311,7 @@ function increaseViewCount() {
                 );
             },
             error: function () {
-                alert("获取数据出错!");
+                //alert("获取数据出错!");
             },
         });
     }

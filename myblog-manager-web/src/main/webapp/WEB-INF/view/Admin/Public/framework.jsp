@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <link rel="shortcut icon" href="/img/logo.png">
+    <link rel="shortcut icon" href="/img/logo.jpg">
     <title>
         ${options.optionSiteTitle}后台
             <rapid:block name="title"></rapid:block>
@@ -53,7 +53,7 @@
                 </dl>
             </li>
             <li class="layui-nav-item">
-                <a href="/admin/logout">退了</a>
+                <a href="/admin/loginout">退了</a>
             </li>
         </ul>
     </div>
@@ -69,6 +69,14 @@
                         <dd><a href="/admin/article/insert">写文章</a></dd>
                         <dd><a href="/admin/category">全部分类</a></dd>
                         <dd><a href="/admin/tag">全部标签</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">相册</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="/admin/picture/insert">添加图片</a></dd>
+                        <dd><a href="/admin/picture">全部图片</a></dd>
+                        <dd><a href="/admin/picture/picCategory">图片分类</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">

@@ -33,13 +33,13 @@
         <property name="dataSource" ref="dataSource"/>
         <!-- 加载mybatis的全局配置文件 -->
         <property name="configLocation" value="classpath:mybatis/Configuration.xml"/>
+
     </bean>
 
     <!--mapper扫描器-->
-   <!-- <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        &lt;!&ndash;如果需要扫描多个包，中间使用半角逗号隔开&ndash;&gt;
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--如果需要扫描多个包，中间使用半角逗号隔开-->
         <property name="basePackage" value="com.wangzhi.blog.mapper"></property>
     </bean>
--->
 
 </beans>

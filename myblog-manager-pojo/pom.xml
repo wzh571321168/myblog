@@ -13,4 +13,10 @@
     <packaging>jar</packaging>
     <name>myblog-manager-pojo</name>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+        </dependency>
+    </dependencies>
 </project>

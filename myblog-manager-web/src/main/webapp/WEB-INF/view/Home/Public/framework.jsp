@@ -16,7 +16,7 @@
     <meta name="applicable-device" content="pc,mobile">
     <meta name="MobileOptimized" content="width"/>
     <meta name="HandheldFriendly" content="true"/>
-    <link rel="shortcut icon" href="/img/logo.png">
+    <link rel="shortcut icon" href="/img/logo.jpg">
     <rapid:block name="description">
         <meta name="description" content="${options.optionMetaDescrption}" />
     </rapid:block>
@@ -30,7 +30,7 @@
     </rapid:block>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/plugin/font-awesome/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="/plugin/layui/css/layui.css">
     <rapid:block name="header-style">
 
     </rapid:block>
@@ -55,8 +55,31 @@
     <script src="/js/superfish.js"></script>
     <script src="/js/script.js"></script>
     <script src="/plugin/layui/layui.all.js"></script>
+    <script src="/js/echarts.js"></script>
 
-<rapid:block name="footer-script"></rapid:block>
+    <script>
+        function showImages(picCategoryId){
+            $.ajax({
+                cache:false,
+                type:'POST',
+                dataType:"json",
+                url:'/admin/picture/showPic',
+                data:{"picCategoryId":picCategoryId},
+                error: function () {
+                    alert('请求失败');
+                },
+                success:function(res){
+                    layer.photos({
+                        photos: res
+                        ,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+                    });
+                }
+            });
+        }
+
+    </script>
+
+
 
 </body>
 </html>

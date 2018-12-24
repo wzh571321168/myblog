@@ -35,12 +35,10 @@
         </a>
         <c:choose>
             <c:when test="${a.categoryCustomList.size()!=0}">
-                <c:forEach items="${articleDetailVo.categoryCustomList}" var="c">
-                    <i class="fa fa-angle-right"></i>
-                    <a href="/category/${c.categoryId}">
-                            ${c.categoryName}
-                    </a>
-                </c:forEach>
+                <a href="/category/${a.articleCustom.articleParentCategoryId}"
+                   target="_blank">${a.articleCustom.articleParentCategoryName}</a>
+                <a href="/category/${a.articleCustom.articleChildCategoryId}"
+                   target="_blank">${a.articleCustom.articleChildCategoryName}</a>
             </c:when>
             <c:otherwise>
                 <a>未分类</a>
@@ -71,12 +69,12 @@
                         <ul class="weimg1">
                             <li><strong>微信</strong></li>
                             <li>赶快加我聊天吧</li>
-                            <li><img src="/img/weixin.jpg"></li>
+                            <li><img src=""></li>
                         </ul>
                         <ul class="weimg2">
-                            <li><strong>博客交流群</strong></li>
+                            <li><strong>交流群</strong></li>
                             <li>海纳百川，大家来水</li>
-                            <li><img src="/img/qqGroup.jpg" alt="weinxin"></li>
+                            <li><img src="" alt="weinxin"></li>
                         </ul>
                         <div class="clear"></div>
                     </div>
@@ -158,11 +156,10 @@
                         </ul>
                         <div class="single-cat-tag">
                             <div class="single-cat">所属分类：
-                                <c:forEach items="${articleDetailVo.categoryCustomList}" var="c">
-                                    <a href="/category/${c.categoryId}">
-                                            ${c.categoryName}
-                                    </a>
-                                </c:forEach>
+                                <a href="/category/${a.articleCustom.articleParentCategoryId}"
+                                   target="_blank">${a.articleCustom.articleParentCategoryName}</a>
+                                <a href="/category/${a.articleCustom.articleChildCategoryId}"
+                                   target="_blank">${a.articleCustom.articleChildCategoryName}</a>
                             </div>
                         </div>
                     </footer><!-- .entry-footer -->

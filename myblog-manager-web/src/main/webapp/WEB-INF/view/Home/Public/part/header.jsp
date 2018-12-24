@@ -13,7 +13,7 @@
             <div class="user-login">
                 <c:choose>
                     <c:when test="${sessionScope.user==null}">
-                        <a href="/admin">登录</a>
+                        <a href="/login">登录</a>
                     </c:when>
                     <c:otherwise>
                         <a href="/admin">进入后台</a>
@@ -86,6 +86,19 @@
                                     </li>
                                 </c:if>
                             </c:forEach>
+                            <li>
+                                <a href="/category/${category.categoryId}">
+                                    <i class="fa-home fa"></i>
+                                    <span class="font-text">个人相册</span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <c:forEach items="${picCategoryList}" var="pic">
+                                        <li>
+                                            <a class="openimg" href='javascript:;' onclick='showImages("${pic.picCategoryId}")' lay-event="img">${pic.picCategoryName}</a>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
+                            </li>
                             <%--主要菜单其余部分--%>
                             <c:forEach items="${menuCustomList}" var="m">
                                 <c:if test="${m.menuLevel==2}">

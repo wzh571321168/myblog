@@ -22,7 +22,6 @@
 
     </style>
 </rapid:override>
-
 <rapid:override name="content">
     <blockquote class="layui-elem-quote">
         <span class="layui-breadcrumb" lay-separator="/">
@@ -33,7 +32,7 @@
 
     <div class="layui-tab layui-tab-card">
         <ul class="layui-tab-title">
-            <li class="layui-this">已发布(${publishedArticleListVoList[0].page.totalCount})</li>
+            <li class="layui-this">已发布(${publishedArticleListVoList[0].page.total})</li>
             <li>草稿(${draftArticleList.size()})</li>
         </ul>
         <div class="layui-tab-content">
@@ -43,6 +42,9 @@
                         <div class="layui-input-block">
                             <input type="text" name="query" placeholder="请输入关键词" autocomplete="off" class="layui-input">
                             <button class="layui-btn" lay-filter="formDemo" onclick="queryArticle()">搜索</button>
+                            <button class="layui-btn" lay-filter="formDemo"
+                                    onclick="importArticle()">一键导入索引库
+                            </button>
                             <button class="layui-btn" lay-filter="formDemo" style="float: right;"
                                     onclick="confirmDeleteArticleBatch()">批量删除
                             </button>
@@ -60,6 +62,7 @@
                             <col width="150">
                             <col width="100">
                         </colgroup>
+
                         <thead>
                         <tr>
                             <th><input type="checkbox" id="allSelect" onclick="javascript:DoCheck()"></th>
@@ -85,11 +88,11 @@
 
                                         </a></td>
                                     <td>
-                                        <c:forEach items="${a.categoryCustomList}" var="c">
-                                            <a href="/category/${c.categoryId}"
-                                               target="_blank">${c.categoryName}</a>
-                                            &nbsp;
-                                        </c:forEach>
+                                        <a href="/category/${a.articleCustom.articleParentCategoryId}"
+                                               target="_blank">${a.articleCustom.articleParentCategoryName}</a>
+                                        <a href="/category/${a.articleCustom.articleChildCategoryId}"
+                                           target="_blank">${a.articleCustom.articleChildCategoryName}</a>
+
                                     </td>
 
                                     <td>
@@ -117,88 +120,11 @@
                         </tbody>
                     </table>
                 </form>
+                <div class="layui-card-footer" style="text-align: center">
+                    <div id="pagination"></div>
+                </div>
 
-                <c:if test="${publishedArticleListVoList.size()!=0}">
-                    <%--分页 start--%>
-                <nav class="navigation pagination" role="navigation">
-                    <div class="nav-links">
-                        <c:choose>
-                            <c:when test="${publishedArticleListVoList[0].page.totalPageCount <= 3 }">
-                                <c:set var="begin" value="1"/>
-                                <c:set var="end" value="${publishedArticleListVoList[0].page.totalPageCount }"/>
-                            </c:when>
-                            <c:otherwise>
-                                <c:set var="begin" value="${publishedArticleListVoList[0].page.pageNow-1 }"/>
-                                <c:set var="end" value="${publishedArticleListVoList[0].page.pageNow + 2}"/>
-                                <c:if test="${begin < 2 }">
-                                    <c:set var="begin" value="1"/>
-                                    <c:set var="end" value="3"/>
-                                </c:if>
-                                <c:if test="${end > publishedArticleListVoList[0].page.totalPageCount }">
-                                    <c:set var="begin" value="${publishedArticleListVoList[0].page.totalPageCount-2 }"/>
-                                    <c:set var="end" value="${publishedArticleListVoList[0].page.totalPageCount }"/>
-                                </c:if>
-                            </c:otherwise>
-                        </c:choose>
-                            <%--上一页 --%>
-                        <c:choose>
-                            <c:when test="${publishedArticleListVoList[0].page.pageNow eq 1 }">
-                                <%--当前页为第一页，隐藏上一页按钮--%>
-                            </c:when>
-                            <c:otherwise>
-                                <a class="page-numbers"
-                                   href="/admin/article/p/${publishedArticleListVoList[0].page.pageNow-1}">
-                                    <i class="layui-icon">&#xe603;</i>
-                                </a>
-                            </c:otherwise>
-                        </c:choose>
-                            <%--显示第一页的页码--%>
-                        <c:if test="${begin >= 2 }">
-                            <a class="page-numbers" href="/admin/article/p/1">1</a>
-                        </c:if>
-                            <%--显示点点点--%>
-                        <c:if test="${begin  > 2 }">
-                            <span class="page-numbers dots">…</span>
-                        </c:if>
-                            <%--打印 页码--%>
-                        <c:forEach begin="${begin }" end="${end }" var="i">
-                            <c:choose>
-                                <c:when test="${i eq publishedArticleListVoList[0].page.pageNow }">
-                                    <a class="page-numbers current">${i}</a>
-                                </c:when>
-                                <c:otherwise>
-                                    <a class="page-numbers"
-                                       href="/admin/article/p/${i}">${i}</a>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
-                            <%-- 显示点点点 --%>
-                        <c:if test="${end < publishedArticleListVoList[0].page.totalPageCount-1 }">
-                            <span class="page-numbers dots">…</span>
-                        </c:if>
-                            <%-- 显示最后一页的数字 --%>
-                        <c:if test="${end < publishedArticleListVoList[0].page.totalPageCount }">
-                            <a href="/admin/article/p/${publishedArticleListVoList[0].page.totalPageCount}">
-                                    ${publishedArticleListVoList[0].page.totalPageCount}
-                            </a>
-                        </c:if>
-                            <%--下一页 --%>
-                        <c:choose>
-                            <c:when test="${publishedArticleListVoList[0].page.pageNow eq publishedArticleListVoList[0].page.totalPageCount }">
-                                <%--到了尾页隐藏，下一页按钮--%>
-                            </c:when>
-                            <c:otherwise>
-                                <a class="page-numbers"
-                                   href="/admin/article/p/${publishedArticleListVoList[0].page.pageNow+1}">
-                                    <i class="layui-icon">&#xe602;</i>
-                                </a>
-                            </c:otherwise>
-                        </c:choose>
 
-                    </div>
-                </nav>
-                    <%--分页 end--%>
-                </c:if>
             </div>
             <div class="layui-tab-item">
                 <table class="layui-table">
@@ -230,11 +156,10 @@
 
                             </a></td>
                             <td>
-                                <c:forEach items="${a.categoryCustomList}" var="c">
-                                    <a href="/category/${c.categoryId}"
-                                       target="_blank">${c.categoryName}</a>
-                                    &nbsp;
-                                </c:forEach>
+                                <a href="/category/${a.articleCustom.articleParentCategoryId}"
+                                   target="_blank">${a.articleCustom.articleParentCategoryName}</a>
+                                <a href="/category/${a.articleCustom.articleChildCategoryId}"
+                                   target="_blank">${a.articleCustom.articleChildCategoryName}</a>
                             </td>
 
                             <td>
@@ -268,6 +193,36 @@
 </rapid:override>
 <rapid:override name="footer-script">
     <script>
+        $(function () {
+
+
+            var laypage = layui.laypage
+            //完整功能
+            laypage.render({
+                elem: 'pagination'
+                , count: ${publishedArticleListVoList.get(0).page.total} //数据总数，从服务端得到
+                , limit: ${publishedArticleListVoList.get(0).page.pageSize}
+                , curr: ${publishedArticleListVoList.get(0).page.pageNum}
+                , layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+                , jump: function (obj, first) {
+                    //obj包含了当前分页的所有参数，比如：
+                    console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                    console.log(obj.limit); //得到每页显示的条数
+
+                    //首次不执行
+                    if (!first) {
+                        //do something
+                        var title = $('#search').val()
+                        var href = '/admin/article/page?title=' + title;
+                        href += '&pageNum=' + obj.curr;
+                        href += '&pageSize=' + obj.limit;
+                        location.href = href;
+                    }
+
+                }
+            });
+        })
+
 
 
     </script>
