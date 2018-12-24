@@ -26,6 +26,7 @@
 
     <rapid:override name="left">
         <div id="primary" class="content-area">
+
             <div class="layui-carousel" id="test10">
                 <div carousel-item="">
                     <c:forEach items="${pictureList}" var="p" >
@@ -118,7 +119,6 @@
                             </span>
                     </article>
                 </c:forEach>
-
             </main>
             <div class="layui-card-footer" style="text-align: center">
                 <div id="pagination"></div>
@@ -176,6 +176,8 @@
                         href += 'pageNum=' + obj.curr;
                         href += '&pageSize=' + obj.limit;
                         location.href = href;
+
+
                     }
 
                 }
@@ -195,6 +197,8 @@
                 ,interval: 5000
             });
         })
+
+
     </script>
 </rapid:override>
 

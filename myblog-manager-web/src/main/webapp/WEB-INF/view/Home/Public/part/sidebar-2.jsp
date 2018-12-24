@@ -73,9 +73,7 @@
             <i class="fa fa-bars"></i>网站概况
         </h3>
         <div class="textwidget widget-text">
-            <%--<div class="layui-container" style="width: 600px;height:400px;">
-                <div id="container" style="height: 100%"></div>
-            </div>--%>
+
             <ul class="site-profile">
                 <li><i class="fa fa-file-o"></i> 文章总数：${siteBasicStatistics[0]} 篇</li>
                 <li><i class="fa fa-commenting-o"></i> 留言数量：${siteBasicStatistics[1]} 条</li>
@@ -85,9 +83,8 @@
                 <li><i class="fa fa-eye"></i> 浏览总量：${siteBasicStatistics[5]} 次</li>
                 <li><i class="fa fa-pencil-square-o"></i> 最后更新：
                     <span style="color:#2F889A">
-                                        <fmt:formatDate value="${lastUpdateArticle.articleUpdateTime}" pattern="yyyy年MM月dd日"/>
-
-                                   </span>
+                        <fmt:formatDate value="${lastUpdateArticle.articleUpdateTime}" pattern="yyyy年MM月dd日"/>
+                   </span>
                 </li>
             </ul>
         </div>
@@ -183,138 +180,4 @@
 
 
 <%--博客主体-右侧侧边栏 end--%>
-<%--
-<rapid:override name="footer-script">
-    <script>
-        var dom = document.getElementById("container");
-        var pieChart = echarts.init(dom);
-        var app = {};
-        pieOption = null;
-        app.title = '环形图';
 
-        pieOption = {
-            tooltip: {
-                trigger: 'item',
-                formatter: "{a} <br/>{b}: {c} ({d}%)"
-            },
-            legend: {
-                orient: 'vertical',
-                x: 'left',
-                data:[]
-            },
-            series: [
-                {
-                    name:'访问来源',
-                    type:'pie',
-                    radius: ['50%', '70%'],
-                    avoidLabelOverlap: false,
-                    label: {
-                        normal: {
-                            show: false,
-                            position: 'center'
-                        },
-                        emphasis: {
-                            show: true,
-                            textStyle: {
-                                fontSize: '30',
-                                fontWeight: 'bold'
-                            }
-                        }
-                    },
-                    labelLine: {
-                        normal: {
-                            show: false
-                        }
-                    },
-                    data:[
-                    ]
-                }
-            ]
-        };
-        ;
-        // 给图标设置配置的参数
-        myChart.setOption(options);
-        myChart.showLoading(); // 显示加载动画
-        // 异步请求加载数据
-        $.ajax({
-            url: '/all',
-            type: 'post',
-            dataType: 'json',
-            success: function(data) {
-                var names = [];
-                var nums = [];
-                var json=[];
-                $.each(data, function(index, obj) {
-                    if(obj.articleCount!=0){
-                        names.push(obj.tagName);
-                        nums.push(obj.articleCount);
-                        var tagname=obj.tagName;
-                        var articleCount=obj.articleCount;
-                        var arr={name:obj.tagName,value:obj.articleCount};
-                        json.push(arr);
-                    }
-
-                })
-
-                myChart.hideLoading(); // 隐藏加载动画
-                myChart.setOption({
-                    legend: {
-                        data: ['文章数量']
-                    },
-                    xAxis: {
-                        data: names
-                    },
-                    series: [{
-                        name: '文章数量',
-                        type: 'bar', // 设置图表类型为柱状图
-                        data: nums // 设置纵坐标的刻度
-                    }]
-                });
-                pieChart.hideLoading(); // 隐藏加载动画
-                pieChart.setOption({
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b}: {c} ({d}%)"
-                    },
-                    legend: {
-                        orient: 'vertical',
-                        x: 'left',
-                        data:names,
-                    },
-                    series: [
-                        {
-                            name:'文章数量',
-                            type:'pie',
-                            radius: ['50%', '70%'],
-                            avoidLabelOverlap: false,
-                            label: {
-                                normal: {
-                                    show: false,
-                                    position: 'center'
-                                },
-                                emphasis: {
-                                    show: true,
-                                    textStyle: {
-                                        fontSize: '30',
-                                        fontWeight: 'bold'
-                                    }
-                                }
-                            },
-                            labelLine: {
-                                normal: {
-                                    show: false
-                                }
-                            },
-                            data:json
-                        }
-                    ]
-                });
-            }
-        });
-        });
-
-
-    </script>
---%>
-<%--
-</rapid:override>--%>

@@ -79,7 +79,7 @@
 
     </script>
 
-
+<rapid:block name="footer-script"></rapid:block>
 
 </body>
 </html>

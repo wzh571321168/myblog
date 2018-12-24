@@ -127,6 +127,7 @@
         } else if(password==""){
             alert("密码不可为空!");
         } else {
+            alert($("#rememberme").val());
             $.ajax({
                 async: false,//同步，待请求完毕后再执行后面的代码
                 type: "POST",

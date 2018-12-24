@@ -124,7 +124,6 @@
                     <div id="pagination"></div>
                 </div>
 
-
             </div>
             <div class="layui-tab-item">
                 <table class="layui-table">
@@ -194,9 +193,7 @@
 <rapid:override name="footer-script">
     <script>
         $(function () {
-
-
-            var laypage = layui.laypage
+            var laypage = layui.laypage;
             //完整功能
             laypage.render({
                 elem: 'pagination'

@@ -57,6 +57,8 @@ public class IndexController {
         ModelAndView mv = new ModelAndView();
         List<ArticleCustomVo> articleCustomVoList = articleService.getArticleListByPage(1,pageNum,pageSize);
         mv.addObject("articleListVoList",articleCustomVoList);
+        List<Picture> pictureList=pictureService.getPictureList();
+        mv.addObject("pictureList",pictureList);
         mv.setViewName("/Home/index");
         return mv;
     }
