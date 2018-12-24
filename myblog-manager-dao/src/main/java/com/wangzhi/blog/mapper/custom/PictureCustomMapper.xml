@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangzhi.blog.mapper.custom.PictureCustomMapper" >
+
+    <sql id="pic_table_all_col">
+        pic_id picId,
+        pic_name picName,
+        pic_category_id picCategoryId,
+        pic_description picDescription,
+        pic_url picUrl,
+        pic_upload_time picUploadTime,
+        pic_status picStatus
+    </sql>
+
+    <select id="getPictureCustomList" parameterType="Integer" resultType="com.wangzhi.pojo.custom.PictureCustom">
+        SELECT
+        <include refid="pic_table_all_col"/>
+        FROM
+        picture
+        WHERE
+        <if test="status!=null">pic_status=#{status}</if>
+    </select>
+
+    <select id="getPictureCustomListByCategoryId" resultType="com.wangzhi.pojo.custom.PictureCustom">
+        SELECT
+            <include refid="pic_table_all_col"/>
+        FROM
+            picture
+        WHERE
+            <if test="status!=null">pic_status=#{status} AND </if>
+            pic_category_id=#{picCategoryId}
+    </select>
+</mapper>

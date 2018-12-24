@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangzhi.blog.mapper.PictureMapper" >
+    <resultMap type="com.wangzhi.pojo.Picture" id="BaseResultMap">
+        <id jdbcType="INTEGER" property="picId" column="pic_id"/>
+        <result jdbcType="VARCHAR" property="picName" column="pic_name"/>
+        <result jdbcType="INTEGER" property="picCategoryId" column="pic_category_id"/>
+        <result jdbcType="VARCHAR" property="picDescription" column="pic_description"/>
+        <result jdbcType="VARCHAR" property="picUrl" column="pic_url"/>
+        <result jdbcType="DATE" property="picUploadTime" column="pic_upload_time"/>
+        <result jdbcType="INTEGER" property="picStatus" column="pic_status"/>
+    </resultMap>
+    <sql id="pic_table_all_col">
+        pic_id,
+        pic_name,
+        pic_category_id,
+        pic_description,
+        pic_url,
+        pic_upload_time,
+        pic_status
+    </sql>
+    <insert id="insertPicture" parameterType="com.wangzhi.pojo.Picture">
+        INSERT INTO picture (
+            pic_name,
+            pic_category_id,
+            pic_description,
+            pic_url,
+            pic_upload_time,
+            pic_status
+        )
+        VALUES
+            (#{picName,jdbcType=VARCHAR}, #{picCategoryId,jdbcType=INTEGER}, #{picDescription,jdbcType=VARCHAR},
+              #{picUrl,jdbcType=VARCHAR}, #{picUploadTime,jdbcType=DATE}, #{picStatus,jdbcType=INTEGER})
+    </insert>
+    <select id="getPictureList" parameterType="Integer" resultMap="BaseResultMap">
+        SELECT
+            <include refid="pic_table_all_col"/>
+        FROM
+            picture
+        WHERE
+            <if test="status!=null">pic_status=#{status}</if>
+    </select>
+    <select id="getNewPictureList" resultMap="BaseResultMap">
+        SELECT
+            <include refid="pic_table_all_col"/>
+        FROM
+            picture
+        ORDER BY
+            pic_id DESC
+        LIMIT 5
+    </select>
+</mapper>

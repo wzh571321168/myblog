@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangzhi.blog.mapper.custom.TagCustomMapper">
+    <select id="getTagCustomList" parameterType="Integer" resultType="com.wangzhi.pojo.custom.TagCustom">
+        SELECT
+            tag_id tagId,
+            tag_name tagName,
+            tag_description tagDescription,
+            tag_status tagStatus
+        FROM
+            tag
+        <if test="status!=null">WHERE tag_status=#{status}</if>
+    </select>
+    <select id="getArticleCountById" resultType="Integer">
+        SELECT
+            COUNT(article_tag_ids)
+        FROM
+            article
+        WHERE
+            article_tag_ids = #{tagId}
+        OR article_tag_ids LIKE '${tagId},%'
+        OR article_tag_ids LIKE '%,${tagId}'
+        OR article_tag_ids LIKE '%,${tagId},%'
+    </select>
+    <insert id="insertTag">
+        INSERT INTO tag (
+            tag_name,
+            tag_description,
+            tag_status
+        )
+        VALUES
+            (#{tag.tagName,jdbcType=VARCHAR},#{tag.tagDescription,jdbcType=VARCHAR},#{tag.tagStatus,jdbcType=INTEGER})
+    </insert>
+</mapper>

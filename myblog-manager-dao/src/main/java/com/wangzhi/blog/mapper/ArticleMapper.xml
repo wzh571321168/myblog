@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangzhi.blog.mapper.ArticleMapper" >
+    <insert id="insertArticle" parameterType="com.wangzhi.pojo.Article">
+        INSERT INTO article (
+            article_id,
+            article_user_id,
+            article_title,
+            article_parent_category_id,
+            article_child_category_id,
+            article_tag_ids,
+            article_view_count,
+            article_comment_count,
+            article_like_count,
+            article_post_time,
+            article_update_time,
+            article_is_comment,
+            article_status,
+            article_order,
+            article_content
+        )
+        VALUES
+            (
+                #{articleId,jdbcType=INTEGER}, #{articleUserId,jdbcType=INTEGER}, #{articleTitle,jdbcType=VARCHAR},#{articleParentCategoryId,jdbcType=INTEGER}, #{articleChildCategoryId,jdbcType=INTEGER},#{articleTagIds,jdbcType=VARCHAR}, #{articleViewCount,jdbcType=INTEGER}, #{articleCommentCount,jdbcType=INTEGER},#{articleLikeCount,jdbcType=INTEGER}, #{articlePostTime,jdbcType=TIMESTAMP}, #{articleUpdateTime,jdbcType=TIMESTAMP},#{articleIsComment,jdbcType=INTEGER}, #{articleStatus,jdbcType=INTEGER}, #{articleOrder,jdbcType=INTEGER},#{articleContent,jdbcType=LONGVARCHAR}
+            )
+    </insert>
+    <delete id="deleteArticleById" parameterType="Integer">
+        DELETE
+        FROM
+            article
+        WHERE
+            article_id =#{id}
+    </delete>
+    <delete id="deleteArticleByIds" parameterType="Integer[]">
+        DELETE
+        FROM
+            article
+        WHERE
+            article_id in
+        <foreach collection="array" item="id" index="no" open="("
+                 separator="," close=")">
+                  #{id}
+        </foreach>
+    </delete>
+    <update id="updateArticle" parameterType="com.wangzhi.pojo.Article">
+        UPDATE article
+        <set>
+            <if test="articleUserId != null">article_user_id = #{articleUserId,jdbcType=INTEGER}, </if>
+            <if test="articleTitle != null">article_title = #{articleTitle,jdbcType=VARCHAR}, </if>
+            <if test="articleParentCategoryId != null">article_parent_category_id = #{articleParentCategoryId,jdbcType=INTEGER}, </if>
+            <if test="articleChildCategoryId != null">article_child_category_id = #{articleChildCategoryId,jdbcType=INTEGER}, </if>
+            <if test="articleTagIds != null">article_tag_ids = #{articleTagIds,jdbcType=VARCHAR}, </if>
+            <if test="articleViewCount != null">article_view_count = #{articleViewCount,jdbcType=INTEGER}, </if>
+            <if test="articleCommentCount != null">article_comment_count = #{articleCommentCount,jdbcType=INTEGER}, </if>
+            <if test="articleLikeCount != null">article_like_count = #{articleLikeCount,jdbcType=INTEGER}, </if>
+            <if test="articlePostTime != null">article_post_time = #{articlePostTime,jdbcType=TIMESTAMP}, </if>
+            <if test="articleUpdateTime != null">article_update_time = #{articleUpdateTime,jdbcType=TIMESTAMP}, </if>
+            <if test="articleIsComment != null">article_is_comment = #{articleIsComment,jdbcType=INTEGER}, </if>
+            <if test="articleStatus != null">article_status = #{articleStatus,jdbcType=INTEGER}, </if>
+            <if test="articleOrder != null">article_order = #{articleOrder,jdbcType=INTEGER}, </if>
+            <if test="articleContent != null">article_content = #{articleContent,jdbcType=LONGVARCHAR}, </if>
+        </set>
+        WHERE
+            article_id=#{articleId}
+    </update>
+    <select id="countArticleWithCategory" resultType="Integer">
+        SELECT count(*)
+        FROM  `article`
+        <where>
+            article_parent_category_id=#{id} OR
+            article_child_category_id=#{id}
+        </where>
+    </select>
+</mapper>

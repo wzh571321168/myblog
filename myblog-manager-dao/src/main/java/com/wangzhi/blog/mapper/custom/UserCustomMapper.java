@@ -1,0 +1,11 @@
+package com.wangzhi.blog.mapper.custom;
+
+
+import com.wangzhi.pojo.User;
+import com.wangzhi.pojo.custom.UserCustom;
+
+public interface UserCustomMapper {
+    User getUserByNameOrEmail(String usernameOrEmail);
+
+    UserCustom getUserById(Integer articleUserId);
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/myblog-common/myblog-common.iml" filepath="$PROJECT_DIR$/myblog-common/myblog-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/myblog-manager/myblog-manager.iml" filepath="$PROJECT_DIR$/myblog-manager/myblog-manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/myblog-manager-dao/myblog-manager-dao.iml" filepath="$PROJECT_DIR$/myblog-manager-dao/myblog-manager-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/myblog-manager-pojo/myblog-manager-pojo.iml" filepath="$PROJECT_DIR$/myblog-manager-pojo/myblog-manager-pojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/myblog-manager-service/myblog-manager-service.iml" filepath="$PROJECT_DIR$/myblog-manager-service/myblog-manager-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/myblog-manager-serviceImpl/myblog-manager-serviceImpl.iml" filepath="$PROJECT_DIR$/myblog-manager-serviceImpl/myblog-manager-serviceImpl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/myblog-manager-web/myblog-manager-web.iml" filepath="$PROJECT_DIR$/myblog-manager-web/myblog-manager-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/myblog-parent/myblog-parent.iml" filepath="$PROJECT_DIR$/myblog-parent/myblog-parent.iml" />
+    </modules>
+  </component>
+</project>

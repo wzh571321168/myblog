@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangzhi.blog.mapper.custom.PicCategoryCustomMapper" >
+    <resultMap type="com.wangzhi.pojo.custom.PicCategoryCustom" id="BaseResultMap">
+        <id jdbcType="INTEGER" property="picCategoryId" column="pic_category_id"/>
+        <result jdbcType="VARCHAR" property="picCategoryName" column="pic_category_name"/>
+        <result jdbcType="VARCHAR" property="picCategoryDescription" column="pic_category_description"/>
+        <result jdbcType="VARCHAR" property="picCategoryIcon" column="pic_category_icon"/>
+        <result jdbcType="INTEGER" property="picCategoryStatus" column="pic_category_status"/>
+        <result jdbcType="INTEGER" property="picCount" column="pic_count"/>
+    </resultMap>
+    <sql id="picCategoryCustom_all_col">
+        b.pic_category_id,
+        b.pic_category_name,
+        b.pic_category_description,
+        b.pic_category_icon,
+        b.pic_category_status,
+        a.pic_count
+    </sql>
+    <select id="getPicCategoryCustomList" resultMap="BaseResultMap">
+        SELECT
+            <include refid="picCategoryCustom_all_col"/>
+        FROM
+            pic_category b
+        LEFT JOIN (
+            SELECT
+                count(*) pic_count,
+                pic_category_id
+            FROM
+                picture
+            GROUP BY
+                pic_category_id
+        ) a ON a.pic_category_id = b.pic_category_id
+    </select>
+</mapper>

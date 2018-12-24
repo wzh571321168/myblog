@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangzhi.blog.mapper.PageMapper" >
+    <resultMap type="com.wangzhi.pojo.Page" id="BaseResultMap">
+        <id jdbcType="INTEGER" property="pageId" column="page_id"/>
+        <result jdbcType="VARCHAR" property="pageKey" column="page_key"/>
+        <result jdbcType="VARCHAR" property="pageTitle" column="page_title"/>
+        <result jdbcType="VARCHAR" property="pageContent" column="page_content"/>
+        <result jdbcType="TIMESTAMP" property="pageCreateTime" column="page_create_time"/>
+        <result jdbcType="TIMESTAMP" property="pageUpdateTime" column="page_update_time"/>
+        <result jdbcType="INTEGER" property="pageViewCount" column="page_view_count"/>
+        <result jdbcType="INTEGER" property="pageCommentCount" column="page_comment_count"/>
+        <result jdbcType="INTEGER" property="pageStatus" column="page_status"/>
+    </resultMap>
+    <sql id="page_all_col">page_id, page_key, page_title, page_content, page_create_time, page_update_time,page_view_count, page_comment_count, page_status </sql>
+    <select id="getPageList" resultMap="BaseResultMap">
+        SELECT
+            <include refid="page_all_col"/>
+        FROM
+            page
+    </select>
+    <select id="getPageByKey" resultMap="BaseResultMap">
+        SELECT
+            <include refid="page_all_col"/>
+        FROM
+            page
+        WHERE
+            <if test="status!=null">page_status=#{status} AND</if>
+            page_key=#{key}
+    </select>
+    <select id="getPageById" resultMap="BaseResultMap">
+        SELECT
+            <include refid="page_all_col"/>
+        FROM
+            page
+        WHERE
+        page_id=#{pageId}
+    </select>
+    <update id="editPage" parameterType="com.wangzhi.pojo.Page">
+        UPDATE page
+        <set>
+            <if test="pageKey != null">page_key = #{pageKey,jdbcType=VARCHAR}, </if>
+            <if test="pageTitle != null">page_title = #{pageTitle,jdbcType=VARCHAR}, </if>
+            <if test="pageContent != null">page_content = #{pageContent,jdbcType=VARCHAR}, </if>
+            <if test="pageCreateTime != null">page_create_time = #{pageCreateTime,jdbcType=TIMESTAMP}, </if>
+            <if test="pageUpdateTime != null">page_update_time = #{pageUpdateTime,jdbcType=TIMESTAMP}, </if>
+            <if test="pageViewCount != null">page_view_count = #{pageViewCount,jdbcType=INTEGER}, </if>
+            <if test="pageCommentCount != null">page_comment_count = #{pageCommentCount,jdbcType=INTEGER}, </if>
+            <if test="pageStatus != null">page_status = #{pageStatus,jdbcType=INTEGER}, </if>
+        </set>
+        where page_id=#{pageId}
+    </update>
+    <insert id="insertPage" parameterType="com.wangzhi.pojo.Page">
+        INSERT INTO page (
+            page_key,
+            page_title,
+            page_content,
+            page_create_time,
+            page_update_time,
+            page_view_count,
+            page_comment_count,
+            page_status
+        )
+        VALUES
+            (#{pageKey},#{pageTitle},#{pageContent},#{pageCreateTime},#{pageUpdateTime},#{pageViewCount},#{pageCommentCount},#{pageStatus})
+    </insert>
+</mapper>

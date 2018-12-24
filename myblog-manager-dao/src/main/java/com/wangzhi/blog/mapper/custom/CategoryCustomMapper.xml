@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangzhi.blog.mapper.custom.CategoryCustomMapper" >
+    <sql id="category_table_all_col">
+        category_id categoryId,
+        category_pid categoryPid,
+        category_name categoryName,
+        category_description categoryDescription,
+        category_order categoryOrder,
+        category_icon categoryIcon,
+        category_status categoryStatus
+    </sql>
+    <select id="getCategoryCustomList" resultType="com.wangzhi.pojo.custom.CategoryCustom">
+        SELECT
+            <include refid="category_table_all_col"></include>
+        FROM
+            category
+    </select>
+    <select id="getCategoryCustmById" resultType="com.wangzhi.pojo.custom.CategoryCustom">
+        SELECT
+            <include refid="category_table_all_col"></include>
+        FROM
+            category
+        WHERE
+            category_id=#{id}
+    </select>
+</mapper>

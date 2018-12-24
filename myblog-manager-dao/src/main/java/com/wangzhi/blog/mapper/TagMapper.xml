@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangzhi.blog.mapper.TagMapper">
+    <select id="getTagById" parameterType="Integer" resultType="com.wangzhi.pojo.custom.TagCustom">
+        SELECT
+            tag_id tagId,
+            tag_name tagName,
+            tag_description tagDescription,
+            tag_status tagStatus
+        FROM
+            tag
+        WHERE
+            tag_id =#{id}
+    </select>
+</mapper>

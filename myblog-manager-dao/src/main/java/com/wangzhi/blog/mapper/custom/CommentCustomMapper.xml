@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangzhi.blog.mapper.custom.CommentCustomMapper" >
+    <sql id="comment_table_all_columns">
+        comment_id commentId,
+        comment_pid commentPid,
+        comment_pname commentPname,
+        comment_article_id commentArticleId,
+        comment_author_name commentAuthorName,
+        comment_author_email commentAuthorEmail,
+        comment_author_url commentAuthorUrl,
+        comment_content commentContent,
+        comment_agent commentAgent,
+        comment_ip commentIp,
+        comment_create_time commentCreateTime,
+        comment_role commentRole,
+        comment_status commentStatus
+    </sql>
+    <select id="getCommentCustomByArticleId" parameterType="Integer" resultType="com.wangzhi.pojo.custom.CommentCustom">
+        SELECT
+            <include refid="comment_table_all_columns"/>
+        FROM
+            `comment`
+        WHERE
+            comment_article_id =#{articleId}
+    </select>
+    <select id="getCommentCustomList" resultType="com.wangzhi.pojo.custom.CommentCustom">
+        SELECT
+            comment_id commentId,
+            comment_pid commentPid,
+            comment_pname commentPname,
+            comment_article_id commentArticleId,
+            comment_author_name commentAuthorName,
+            comment_author_email commentAuthorEmail,
+            comment_author_url commentAuthorUrl,
+            comment_content commentContent,
+            comment_agent commentAgent,
+            comment_ip commentIp,
+            comment_create_time commentCreateTime,
+            comment_role commentRole,
+            comment_status commentStatus,
+           u.user_avatar commentAuthorAvatar
+        FROM
+            `comment` c
+        <if test="status!=null">WHERE c.comment_status=#{status}</if>
+        LEFT JOIN `user` u ON c.comment_article_id = u.user_id
+    </select>
+</mapper>

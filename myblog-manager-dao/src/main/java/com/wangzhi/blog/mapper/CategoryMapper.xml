@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangzhi.blog.mapper.CategoryMapper" >
+    <insert id="insertCategory" parameterType="com.wangzhi.pojo.Category">
+        INSERT INTO category (
+            category_id,
+            category_pid,
+            category_name,
+            category_description,
+            category_order,
+            category_icon,
+            category_status
+        )
+        VALUES
+            (#{categoryId,jdbcType=INTEGER}, #{categoryPid,jdbcType=INTEGER}, #{categoryName,jdbcType=VARCHAR},
+              #{categoryDescription,jdbcType=VARCHAR}, #{categoryOrder,jdbcType=INTEGER}, #{categoryIcon,jdbcType=VARCHAR},
+              #{categoryStatus,jdbcType=INTEGER})
+    </insert>
+    <delete id="deleteCategory">
+        DELETE FROM category WHERE category_id=#{id}
+    </delete>
+</mapper>

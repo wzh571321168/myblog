@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangzhi.blog.mapper.custom.ArticleCustomMapper" >
+    <!--<resultMap id="ArticleBaseResultMap" type="com.wangzhi.pojo.custom.CategoryCustom">
+        <association property="article" javaType="com.wangzhi.pojo.Article">
+            <id jdbcType="INTEGER" property="articleId" column="article_id"/>
+            <result jdbcType="INTEGER" property="articleUserId" column="article_user_id"/>
+            <result jdbcType="VARCHAR" property="articleTitle" column="article_title"/>
+            <result jdbcType="INTEGER" property="articleParentCategoryId" column="article_parent_category_id"/>
+            <result jdbcType="INTEGER" property="articleChildCategoryId" column="article_child_category_id"/>
+            <result jdbcType="VARCHAR" property="articleTagIds" column="article_tag_ids"/>
+            <result jdbcType="INTEGER" property="articleViewCount" column="article_view_count"/>
+            <result jdbcType="INTEGER" property="articleCommentCount" column="article_comment_count"/>
+            <result jdbcType="INTEGER" property="articleLikeCount" column="article_like_count"/>
+            <result jdbcType="TIMESTAMP" property="articlePostTime" column="article_post_time"/>
+            <result jdbcType="TIMESTAMP" property="articleUpdateTime" column="article_update_time"/>
+            <result jdbcType="INTEGER" property="articleIsComment" column="article_is_comment"/>
+            <result jdbcType="INTEGER" property="articleStatus" column="article_status"/>
+            <result jdbcType="INTEGER" property="articleOrder" column="article_order"/>
+        </association>
+    </resultMap>
+    <resultMap id="ArticleCustomDetail" type="com.wangzhi.pojo.custom.ArticleCustom" extends="ArticleBaseResultMap">
+        <collection property="categoryCustomList" ofType="com.wangzhi.pojo.custom.CategoryCustom">
+            <id column="category_id" property="categoryId"/>
+            <result column="category_name" property="categoryName"/>
+        </collection>
+    </resultMap>-->
+    <sql id="articleCustom_table_all_col">
+        a.article_id articleId,
+        a.article_user_id articleUserId,
+        a.article_title articleTitle,
+        a.article_content articleContent,
+        a.article_parent_category_id articleParentCategoryId,
+        a.article_child_category_id articleChildCategoryId,
+        a.article_tag_ids articleTagIds,
+        a.article_view_count articleViewCount,
+        a.article_comment_count articleCommentCount,
+        a.article_like_count articleLikeCount,
+        a.article_post_time articlePostTime,
+        a.article_update_time articleUpdateTime,
+        a.article_is_comment articleIsComment,
+        a.article_status articleStatus,
+        a.article_order articleOrder,
+        c.category_name articleChildCategoryName,
+        b.category_name articleParentCategoryName
+    </sql>
+    <sql id="article_table_all_col">
+        article_id articleId,
+        article_user_id articleUserId,
+        article_title articleTitle,
+        article_content articleContent,
+        article_parent_category_id articleParentCategoryId,
+        article_child_category_id articleChildCategoryId,
+        article_tag_ids articleTagIds,
+        article_view_count articleViewCount,
+        article_comment_count articleCommentCount,
+        article_like_count articleLikeCount,
+        article_post_time articlePostTime,
+        article_update_time articleUpdateTime,
+        article_is_comment articleIsComment,
+        article_status articleStatus,
+        article_order articleOrder
+    </sql>
+    <select id="getArticleByCategoryId" resultType="Integer">
+        SELECT
+            COUNT(*)
+        FROM
+            article
+        WHERE
+        <if test="status!=null">
+            article_status = #{status} AND
+        </if>
+         article_parent_category_id =#{categoryId}
+        OR article_child_category_id =#{categoryId}
+    </select>
+    <select id="getArticleCustomList" resultType="com.wangzhi.pojo.custom.ArticleCustom">
+        SELECT
+            <include refid="articleCustom_table_all_col"/>
+        FROM
+            (
+                SELECT
+                    *
+                FROM
+                    article
+                WHERE
+                    article_status = #{status}
+            ) a
+        LEFT JOIN category c ON a.article_child_category_id = c.category_id
+        LEFT JOIN category b ON a.article_parent_category_id = b.category_id
+    </select>
+    <select id="getArticleCustomById" parameterType="Integer" resultType="com.wangzhi.pojo.custom.ArticleCustom">
+        SELECT
+        <include refid="articleCustom_table_all_col"/>
+        FROM
+            (
+                SELECT
+                    *
+                FROM
+                    article
+                WHERE
+                    article_id = #{articleId}
+            ) a
+        LEFT JOIN category c ON a.article_child_category_id = c.category_id
+        LEFT JOIN category b ON a.article_parent_category_id = b.category_id
+    </select>
+    <!--获取访问量较多的文章-->
+    <select id="getArticleByViewCount" resultType="com.wangzhi.pojo.Article">
+        SELECT
+            <include refid="article_table_all_col"/>
+        FROM
+            article
+        <where>
+            <if test="status!=null">article_status=#{status} </if>
+        </where>
+        ORDER BY article_view_count DESC,article_order DESC, article_id DESC limit #{limit}
+    </select>
+    <!--获取下一篇文章-->
+    <select id="getAfterArticle" resultType="com.wangzhi.pojo.Article">
+        SELECT
+            <include refid="article_table_all_col"/>
+        FROM
+            `article`
+        WHERE
+            article_id > #{articleId}
+            <if test="status!=null">
+                AND article_status = #{status}
+            </if>
+        ORDER BY
+            article_id
+        LIMIT 1
+    </select>
+    <!--获取上一篇文章-->
+    <select id="getPreViousArticle" resultType="com.wangzhi.pojo.Article">
+        SELECT
+            <include refid="article_table_all_col"/>
+        FROM
+            `article`
+        WHERE
+            article_id &lt; #{articleId}
+        <if test="status!=null">
+            AND article_status = #{status}
+        </if>
+        ORDER BY
+            article_id
+            LIMIT 1
+    </select>
+    <!--根据文章id获取文章-->
+    <select id="getArticleById" resultType="com.wangzhi.pojo.Article">
+        SELECT
+            <include refid="article_table_all_col"/>
+        FROM
+            `article`
+        WHERE
+            article_id = #{articleId}
+        <if test="status!=null">
+            AND article_status = #{status}
+        </if>
+    </select>
+    <!--根据分类父id和子id获取文章列表-->
+    <select id="getArticleListWithSameCategory" resultType="com.wangzhi.pojo.Article">
+        SELECT
+            <include refid="article_table_all_col"/>
+        FROM
+            `article`
+        WHERE
+            article_parent_category_id =#{articleParentCategoryId}
+            AND article_child_category_id =#{articleChildCategoryId}
+        <if test="status!=null">
+            AND article_status = #{status}
+        </if>
+    </select>
+    <!--根据分类的id获取文章列表-->
+    <select id="getArticleCustomListById" parameterType="Integer" resultType="com.wangzhi.pojo.custom.ArticleCustom">
+        SELECT
+            <include refid="articleCustom_table_all_col"/>
+        FROM
+            (
+                SELECT
+                    *
+                FROM
+                    article
+                WHERE
+                    article_status = #{status} AND article_child_category_id=#{id} OR article_parent_category_id =#{id}
+            ) a
+        LEFT JOIN category c ON a.article_child_category_id = c.category_id
+        LEFT JOIN category b ON a.article_parent_category_id = b.category_id
+    </select>
+</mapper>

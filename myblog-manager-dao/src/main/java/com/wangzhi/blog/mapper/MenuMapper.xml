@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangzhi.blog.mapper.MenuMapper" >
+    <resultMap id="BaseResultMap" type="com.wangzhi.pojo.Menu" >
+        <id column="menu_id" property="menuId" jdbcType="INTEGER" />
+        <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+        <result column="menu_url" property="menuUrl" jdbcType="VARCHAR" />
+        <result column="menu_level" property="menuLevel" jdbcType="INTEGER" />
+        <result column="menu_icon" property="menuIcon" jdbcType="VARCHAR" />
+        <result column="menu_order" property="menuOrder" jdbcType="INTEGER" />
+        <result column="menu_status" property="menuStatus" jdbcType="INTEGER" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+    menu_id, menu_name, menu_url, menu_level, menu_icon, menu_order, menu_status
+  </sql>
+    <select id="getMenuList" resultMap="BaseResultMap">
+        SELECT
+            <include refid="Base_Column_List"/>
+        FROM
+            menu
+        <if test="status!=null">WHERE menu_status=#{status}</if>
+    </select>
+</mapper>

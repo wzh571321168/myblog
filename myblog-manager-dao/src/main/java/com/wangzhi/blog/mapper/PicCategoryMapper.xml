@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangzhi.blog.mapper.PicCategoryMapper" >
+    <resultMap type="com.wangzhi.pojo.PicCategoy" id="BaseResultMap">
+        <id jdbcType="INTEGER" property="picCategoryId" column="pic_category_id"/>
+        <result jdbcType="VARCHAR" property="picCategoryName" column="pic_category_name"/>
+        <result jdbcType="VARCHAR" property="picCategoryDescription" column="pic_category_description"/>
+        <result jdbcType="VARCHAR" property="picCategoryIcon" column="pic_category_icon"/>
+        <result jdbcType="INTEGER" property="picCategoryStatus" column="pic_category_status"/>
+    </resultMap>
+    <sql id="picCategory_all_col">
+        pic_category_id,
+        pic_category_name,
+        pic_category_description,
+        pic_category_icon,
+        pic_category_status
+    </sql>
+    <select id="getPicCategoryList" resultMap="BaseResultMap">
+        SELECT
+            <include refid="picCategory_all_col"/>
+        FROM
+            pic_category
+    </select>
+    <select id="getPicCategoryById" resultMap="BaseResultMap">
+        SELECT
+            <include refid="picCategory_all_col"/>
+        FROM
+            pic_category
+        WHERE
+            pic_category_id=#{picCategoryId}
+    </select>
+    <insert id="addPicCategory" parameterType="com.wangzhi.pojo.PicCategoy">
+        INSERT INTO pic_category (
+            pic_category_name,
+            pic_category_description,
+            pic_category_icon,
+            pic_category_status
+        )
+        VALUES
+            (#{picCategoryName,jdbcType=VARCHAR},#{picCategoryDescription,jdbcType=VARCHAR},#{picCategoryIcon,jdbcType=VARCHAR},#{picCategoryStatus,jdbcType=INTEGER})
+    </insert>
+    <delete id="deleteCategoryById">
+        DELETE FROM pic_category WHERE pic_category_id=#{id}
+    </delete>
+</mapper>
