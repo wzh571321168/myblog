@@ -13,7 +13,7 @@
     <artifactId>myblog-common</artifactId>
     <packaging>jar</packaging>
 
-    <name>e3-common</name>
+    <name>myblog-common</name>
     <dependencies>
         <!-- 时间操作组件 -->
         <dependency>

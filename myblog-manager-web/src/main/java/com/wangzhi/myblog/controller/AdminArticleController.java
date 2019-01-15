@@ -5,6 +5,7 @@ import com.wangzhi.myblog.service.CategoryService;
 import com.wangzhi.myblog.service.TagService;
 import com.wangzhi.pojo.Article;
 import com.wangzhi.pojo.Category;
+import com.wangzhi.pojo.User;
 import com.wangzhi.pojo.custom.ArticleCustomVo;
 import com.wangzhi.pojo.custom.CategoryCustom;
 import com.wangzhi.pojo.custom.TagCustom;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 
@@ -72,7 +74,8 @@ public class AdminArticleController {
         return mv;
     }
     @RequestMapping("/insertSubmit")
-    public String insertArticle(Article article){
+    public String insertArticle(Article article, HttpSession session){
+        article.setArticleUserId(((User)session.getAttribute("user")).getUserId());
         article.setArticlePostTime(new Date());
         article.setArticleUpdateTime(new Date());
         article.setArticleIsComment(1);

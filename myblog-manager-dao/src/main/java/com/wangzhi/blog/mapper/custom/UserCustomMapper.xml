@@ -31,4 +31,10 @@
         WHERE
             user_id =#{articleUserId}
     </select>
+    <select id="getUserList" resultType="com.wangzhi.pojo.custom.UserCustom">
+        SELECT
+            <include refid="user_table_all_col"/>
+        FROM
+            `user`
+    </select>
 </mapper>

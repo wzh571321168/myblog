@@ -13,4 +13,6 @@ public interface ArticleMapper {
     void updateArticle(Article article);
 
     Integer countArticleWithCategory(@Param("id") Integer id);
+
+    Integer countArticleByUserId(Integer userId);
 }
