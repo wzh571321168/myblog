@@ -11,4 +11,6 @@ public interface PictureMapper {
     List<Picture> getPictureList(Integer status);
 
     List<Picture> getNewPictureList();
+
+    void deletePicById(Integer id);
 }

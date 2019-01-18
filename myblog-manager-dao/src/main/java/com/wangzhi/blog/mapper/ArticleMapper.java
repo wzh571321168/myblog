@@ -14,5 +14,5 @@ public interface ArticleMapper {
 
     Integer countArticleWithCategory(@Param("id") Integer id);
 
-    Integer countArticleByUserId(Integer userId);
+    Integer countArticleByUserId(@Param("userId") Integer userId);
 }

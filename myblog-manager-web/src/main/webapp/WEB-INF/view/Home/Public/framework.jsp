@@ -25,7 +25,7 @@
     </rapid:block>
     <rapid:block name="title">
         <title>
-                ${options.optionSiteTitle}-${options.optionSiteDescrption}
+                个人博客首页<%--${options.optionSiteTitle}-${options.optionSiteDescrption}--%>
         </title>
     </rapid:block>
     <link rel="stylesheet" href="/css/style.css">

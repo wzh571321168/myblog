@@ -30,7 +30,7 @@
             <div class="layui-carousel" id="test10">
                 <div carousel-item="">
                     <c:forEach items="${pictureList}" var="p" >
-                        <div><img src="${p.picUrl}" width="778px" height="440px"></div>
+                        <div><img src="${p.picUrl}" width="760px" height="440px"></div>
                     </c:forEach>
                 </div>
             </div>

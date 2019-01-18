@@ -38,7 +38,9 @@ public class PictureServiceImpl implements PictureService {
         PageInfo<PictureCustom> pageInfo = new PageInfo<>(pictureCustomList);
         for(int i=0;i<pictureCustomList.size();i++){
             PicCategoy picCategoy=picCategoryMapper.getPicCategoryById(pictureCustomList.get(i).getPicCategoryId());
-            pictureCustomList.get(i).setPicCategoryName(picCategoy.getPicCategoryName());
+            if(picCategoy!=null) {
+                pictureCustomList.get(i).setPicCategoryName(picCategoy.getPicCategoryName());
+            }
             PictureCustomVo pictureCustomVo=new PictureCustomVo();
             pictureCustomVo.setPageInfo(pageInfo);
             pictureCustomVo.setPictureCustom(pictureCustomList.get(i));
@@ -55,5 +57,10 @@ public class PictureServiceImpl implements PictureService {
     @Override
     public List<Picture> getPictureList() {
         return pictureMapper.getNewPictureList();
+    }
+
+    @Override
+    public void deletePicById(Integer id) {
+        pictureMapper.deletePicById(id);
     }
 }

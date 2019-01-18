@@ -14,4 +14,6 @@ public interface PictureService {
     List<PictureCustom> getPictureCustomListByCategoryId(Integer status,Integer picCategoryId);
 
     List<Picture> getPictureList();
+
+    void deletePicById(Integer id);
 }

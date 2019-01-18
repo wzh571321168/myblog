@@ -97,6 +97,10 @@ public class AdminPictureController {
         layerUIPhotosResult.setData(pictureData);
         return layerUIPhotosResult;
     }
+    @RequestMapping("/deletePic/{id}")
+    public void deletePicById(@PathVariable("id") Integer id){
+        pictureService.deletePicById(id);
+    }
     @RequestMapping("picCategory")
     public ModelAndView picCategory(){
         ModelAndView mv=new ModelAndView();

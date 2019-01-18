@@ -25,9 +25,5 @@
     <!--全局setting配置，根据需要再加-->
 
 
-<!--    &lt;!&ndash;配置别名&ndash;&gt;
-    <typeAliases>
-        &lt;!&ndash;批量扫描别名&ndash;&gt;
-        <package name="com.liuyanzhao.ssm.entity"/>
-    </typeAliases>-->
+
 </configuration>

@@ -14,45 +14,6 @@
 	http://www.springframework.org/schema/tx/spring-tx.xsd">
     <!-- 配置包扫描器 -->
     <context:component-scan base-package="com.wangzhi.myblog.serviceImpl"></context:component-scan>
-    <!--<bean class="org.apache.solr.client.solrj.impl.HttpSolrServer" name="solrServer">
-        <constructor-arg name="baseURL" value="http://172.16.23.201:8080/solr/collection1/"/>
-    </bean>-->
-    <!-- 用户管理的service -->
-    <!--<bean id="userService" class="com.wangzhi.myblog.serviceImpl.UserServiceImpl"/>
-    <bean id="categoryService" class="com.wangzhi.myblog.serviceImpl.CategoryServiceImpl"/>
-    <bean id="articleService" class="com.wangzhi.myblog.serviceImpl.ArticleServiceImpl"/>-->
 
-    <!-- 文章管理的service -->
-   <!-- <bean id="articleService" class="com.liuyanzhao.blog.service.impl.ArticleServiceImpl"/>
-
-    &lt;!&ndash; 分类管理的service &ndash;&gt;
-    <bean id="categoryService" class="com.liuyanzhao.blog.service.impl.CategoryServiceImpl"/>
-
-    &lt;!&ndash; 标签管理的service &ndash;&gt;
-    <bean id="tagService" class="com.liuyanzhao.blog.service.impl.TagServiceImpl"/>
-
-    &lt;!&ndash;链接管理的service&ndash;&gt;
-    <bean id="linkService" class="com.liuyanzhao.blog.service.impl.LinkServiceImpl"/>
-
-    &lt;!&ndash;页面管理的service&ndash;&gt;
-    <bean id="pageService" class="com.liuyanzhao.blog.service.impl.PageServiceImpl"/>
-
-    &lt;!&ndash;网站信息管理的service&ndash;&gt;
-    <bean id="optionService" class="com.liuyanzhao.blog.service.impl.OptionsServiceImpl"/>
-
-    &lt;!&ndash;评论管理的service&ndash;&gt;
-    <bean id="commentService" class="com.liuyanzhao.blog.service.impl.CommentServiceImpl"/>
-
-    &lt;!&ndash;评论管理的service&ndash;&gt;
-    <bean id="noticeService" class="com.liuyanzhao.blog.service.impl.NoticeServiceImpl"/>
-
-    &lt;!&ndash;菜单管理的service&ndash;&gt;
-    <bean id="menuService" class="com.liuyanzhao.blog.service.impl.MenuServiceImpl"/>
-
-
-
-    &lt;!&ndash;常用功能&ndash;&gt;
-    <bean id="functions" class="com.liuyanzhao.blog.util.Functions"/>
--->
 
 </beans>

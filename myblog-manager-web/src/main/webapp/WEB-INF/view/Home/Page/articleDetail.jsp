@@ -69,12 +69,12 @@
                         <ul class="weimg1">
                             <li><strong>微信</strong></li>
                             <li>赶快加我聊天吧</li>
-                            <li><img src=""></li>
+                            <li><img src="/img/weixin.jpg"></li>
                         </ul>
                         <ul class="weimg2">
                             <li><strong>交流群</strong></li>
                             <li>海纳百川，大家来水</li>
-                            <li><img src="" alt="weinxin"></li>
+                            <li><img src="/img/qq.png" alt="weinxin"></li>
                         </ul>
                         <div class="clear"></div>
                     </div>

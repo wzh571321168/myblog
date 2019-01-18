@@ -1,4 +1,4 @@
-package com.wangzhi.myblog.controller;
+/*package com.wangzhi.myblog.controller;
 
 import com.wangzhi.myblog.util.FastDFSClient;
 import com.wangzhi.pojo.custom.LayEditResult;
@@ -42,4 +42,4 @@ public class PictureUploadController {
         }
         return null;
     }
-}
+}*/

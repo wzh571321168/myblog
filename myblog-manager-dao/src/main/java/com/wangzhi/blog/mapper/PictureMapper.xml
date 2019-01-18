@@ -49,4 +49,11 @@
             pic_id DESC
         LIMIT 5
     </select>
+    <delete id="deletePicById" parameterType="Integer">
+        DELETE
+        FROM
+            picture
+        WHERE
+            pic_id = #{id};
+    </delete>
 </mapper>

@@ -42,9 +42,15 @@
         <json.version>20170516</json.version>
         <fastdfs-client-java.version>1.25</fastdfs-client-java.version>
         <solrj.version>5.5.3</solrj.version>
+        <qiniu.version>7.1.1</qiniu.version>
     </properties>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.qiniu</groupId>
+                <artifactId>qiniu-java-sdk</artifactId>
+                <version>${qiniu.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.googlecode.rapid-framework</groupId>
                 <artifactId>rapid-core</artifactId>

@@ -22,7 +22,7 @@
     <style type="text/css">
         body{
             font-family: "Microsoft YaHei", Helvetica, Arial, Lucida Grande, Tahoma, sans-serif;
-            background: url(/img/loginBg.jpg);
+            background: url(/img/wang.jpg);
             width:100%;
             height:100%;
         }
@@ -78,11 +78,11 @@
     <form name="loginForm" id="loginForm"  method="post">
         <p>
             <label for="user_login">猜猜我的用户名<br />
-                <input type="text" name="username" id="user_login" class="input" value="<%=username%>" onblur="" size="20" required/></label>
+                <input style="border-radius: 10px" type="text" name="username" id="user_login" class="input" value="<%=username%>" onblur="" size="20" required/></label>
         </p>
         <p>
             <label for="user_pass">你是猜不到我的密码的<br />
-                <input type="password" name="password" id="user_pass" class="input" value="<%=password%>" size="20" required/>
+                <input style="border-radius: 10px" type="password" name="password" id="user_pass" class="input" value="<%=password%>" size="20" required/>
             </label>
         </p>
         <p class="forgetmenot"><label for="rememberme"><input name="rememberme" type="checkbox" id="rememberme" value="1" checked /> 记住密码</label></p>

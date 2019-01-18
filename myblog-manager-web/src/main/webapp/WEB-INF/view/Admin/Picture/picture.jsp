@@ -162,13 +162,13 @@
             });
         })
 
-        //删除文章
+        //删除图片
         function deletePicture(id) {
             if(confirmDelete()==true){
                 $.ajax({
                     async: false,
                     type: "POST",
-                    url:'/admin/picture/delete/'+id,
+                    url:'/admin/picture/deletePic/'+id,
                     contentType : "application/x-www-form-urlencoded; charset=utf-8",
                     dataType: "text",
                     complete:function () {

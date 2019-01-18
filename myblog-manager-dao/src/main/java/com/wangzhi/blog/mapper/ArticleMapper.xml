@@ -71,4 +71,13 @@
             article_child_category_id=#{id}
         </where>
     </select>
+    <select id="countArticleByUserId" resultType="Integer">
+        SELECT
+            count(*)
+        FROM
+            article
+        WHERE
+            article_user_id = #{userId}
+        AND article_status = 1;
+    </select>
 </mapper>

@@ -49,7 +49,7 @@
                     ${loginUser.userName}
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="/admin/user/profile/${loginUser.userId}">基本资料</a></dd>
+                    <dd><a href="/admin/user/profile/${sessionScope.user.getUserId()}">基本资料</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
